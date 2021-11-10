@@ -11,7 +11,9 @@ import javax.persistence.Entity;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Note {
+public class Note implements BaseEntity<Long> {
+
+    private Long id;
 
     private String uuid;
 
