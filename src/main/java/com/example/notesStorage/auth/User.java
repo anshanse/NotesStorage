@@ -1,5 +1,6 @@
 package com.example.notesStorage.auth;
 
+import com.example.notesStorage.addingNote.BaseEntity;
 import com.example.notesStorage.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,9 @@ import javax.persistence.Entity;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements BaseEntity<Long> {
+
+    private Long id;
 
     private String userName;
 
