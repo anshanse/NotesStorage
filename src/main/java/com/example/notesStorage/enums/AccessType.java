@@ -3,19 +3,18 @@ package com.example.notesStorage.enums;
 import java.util.Arrays;
 import java.util.Optional;
 
-
 public enum AccessType {
 
     PRIVATE("PRIVATE"),
     PUBLIC("PUBLIC");
 
-    private String accessType;
+    private final String accessType;
 
-    AccessType(String accessType){
+    AccessType(String accessType) {
         this.accessType = accessType;
     }
 
-    public String getAccessType(){
+    public String getAccessType() {
         return accessType;
     }
 
