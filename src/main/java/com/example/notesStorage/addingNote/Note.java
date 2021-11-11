@@ -1,14 +1,16 @@
 package com.example.notesStorage.addingNote;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.notesStorage.BaseEntity;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "notes")
@@ -28,4 +30,16 @@ public class Note implements BaseEntity<Long> {
 
     private AccessType accessType;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Note note = (Note) o;
+        return id != null && Objects.equals(id, note.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
