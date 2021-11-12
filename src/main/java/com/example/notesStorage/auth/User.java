@@ -15,15 +15,15 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements BaseEntity<Long> {
+public class User implements BaseEntity<String> {
 
     private static final long serialVersionUID = 6445768438123274615L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
-    private String userName;
+    private String username;
 
     private String password;
 
