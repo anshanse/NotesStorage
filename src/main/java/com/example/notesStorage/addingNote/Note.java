@@ -29,21 +29,29 @@ public class Note implements BaseEntity<String> {
     private String id;
 
     @NotNull
-    @Pattern(regexp = "regular")
+//    @Pattern(regexp = "regular")
     @Size(min = 5, max = 100, message = "shout be more then 5 and not more that 100")
     private String name;
 
     @NotNull
-    @Pattern(regexp = "20 rowes,regular")
+//    @Pattern(regexp = "20 rowes,regular")
     private String message;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private AccessType accessType;
 
     public String getId() {
-        return UUID.randomUUID().toString();
+        //return UUID.randomUUID().toString();
+        return id;
     }
 
+    public Note(String name, String message, AccessType accessType) {
+        this.name = name;
+        this.message = message;
+        this.accessType = accessType;
+        this.id = UUID.randomUUID().toString();
+    }
 
     @Override
     public int hashCode() {
