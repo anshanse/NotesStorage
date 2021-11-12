@@ -14,13 +14,13 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "notes")
-public class Note implements BaseEntity<Long> {
+public class Note implements BaseEntity<String> {
 
     private static final long serialVersionUID = 4044714827569083806L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     private String uuid;
 
@@ -42,4 +42,5 @@ public class Note implements BaseEntity<Long> {
     public int hashCode() {
         return getClass().hashCode();
     }
+
 }
