@@ -5,7 +5,11 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,24 +23,27 @@ public class Note implements BaseEntity<String> {
     private static final long serialVersionUID = 4044714827569083806L;
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Size(min = 8, max = 100, message = "shout be more then 8 and not more that 100")
     private String id;
 
-    private String uuid;
-
+    @NotNull
+    @Pattern(regexp = "regular")
+    @Size(min = 5, max = 100, message = "shout be more then 5 and not more that 100")
     private String name;
 
+    @NotNull
+    @Pattern(regexp = "20 rowes,regular")
     private String message;
 
+    @NotNull
     private AccessType accessType;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Note note = (Note) o;
-        return id != null && Objects.equals(id, note.id);
+    public String getId() {
+        return UUID.randomUUID().toString();
     }
+
 
     @Override
     public int hashCode() {

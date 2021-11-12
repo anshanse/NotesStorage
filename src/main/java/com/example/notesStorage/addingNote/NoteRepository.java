@@ -10,6 +10,6 @@ import java.util.List;
 public interface NoteRepository extends EntityRepository<Note, String> {
 
     @Query("SELECT u FROM #{#entityName} u WHERE u.name=?1")
-    List<Note> findByName(String username);
+    List<Note> findByName(String name);
 
 }
