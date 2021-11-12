@@ -24,7 +24,7 @@ public class Note implements BaseEntity<String> {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Size(min = 8, max = 100, message = "shout be more then 8 and not more that 100")
     private String id;
 
@@ -38,7 +38,7 @@ public class Note implements BaseEntity<String> {
     private String message;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private AccessType accessType;
 
     public String getId() {

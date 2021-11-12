@@ -29,7 +29,7 @@ public class User implements BaseEntity<String> {
     @Id
     @UniqueElements
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Size(min = 8, max = 100, message = "shout be more then 8 and not more that 100")
     private String id;
 
@@ -49,7 +49,7 @@ public class User implements BaseEntity<String> {
 
     public User(String username, String password, Role role) {
         this.username = username;
-        this.password = password;
+        this.password = (password);
         this.role = role;
         this.id = UUID.randomUUID().toString();
     }

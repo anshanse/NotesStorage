@@ -53,9 +53,9 @@ public class UserController {
     }
 
     @GetMapping("/id")
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(String id) {
         System.out.println("User findById " + id);
-        return userServiceImpl.findById(id.toString());
+        return userServiceImpl.findById(id);
     }
 
     @GetMapping("/username")
