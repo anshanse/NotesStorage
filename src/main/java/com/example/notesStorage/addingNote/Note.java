@@ -1,14 +1,12 @@
 package com.example.notesStorage.addingNote;
 
 import com.example.notesStorage.BaseEntity;
+import com.example.notesStorage.enums.AccessTypes;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -38,15 +36,15 @@ public class Note implements BaseEntity<String> {
     private String message;
 
     @NotNull
-    @Enumerated(EnumType.ORDINAL)
-    private AccessType accessType;
+    @Enumerated(EnumType.STRING)
+    private AccessTypes accessType;
 
     public String getId() {
         //return UUID.randomUUID().toString();
         return id;
     }
 
-    public Note(String name, String message, AccessType accessType) {
+    public Note(String name, String message, AccessTypes accessType) {
         this.name = name;
         this.message = message;
         this.accessType = accessType;
