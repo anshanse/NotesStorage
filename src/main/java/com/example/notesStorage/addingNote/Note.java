@@ -1,6 +1,7 @@
 package com.example.notesStorage.addingNote;
 
 import com.example.notesStorage.BaseEntity;
+import com.example.notesStorage.auth.User;
 import com.example.notesStorage.enums.AccessTypes;
 import lombok.*;
 
@@ -38,6 +39,11 @@ public class Note implements BaseEntity<String> {
     @NotNull
     @Enumerated(EnumType.STRING)
     private AccessTypes accessType;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     public String getId() {
         //return UUID.randomUUID().toString();
