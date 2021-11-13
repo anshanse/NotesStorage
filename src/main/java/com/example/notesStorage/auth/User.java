@@ -1,6 +1,7 @@
 package com.example.notesStorage.auth;
 
 import com.example.notesStorage.BaseEntity;
+import com.example.notesStorage.addingNote.Note;
 import com.example.notesStorage.enums.Role;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -46,6 +48,9 @@ public class User implements BaseEntity<String> {
     @Enumerated(EnumType.STRING)
     @NotEmpty
     private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Note> notes;
 
     public User(String username, String password, Role role) {
         this.username = username;
