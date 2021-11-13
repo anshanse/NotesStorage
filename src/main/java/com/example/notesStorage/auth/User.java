@@ -13,6 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -28,7 +29,7 @@ public class User implements BaseEntity<String> {
     @Id
     @UniqueElements
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Size(min = 8, max = 100, message = "shout be more then 8 and not more that 100")
     private String id;
 
@@ -46,6 +47,13 @@ public class User implements BaseEntity<String> {
     @NotEmpty
     private Role role;
 
+    public User(String username, String password, Role role) {
+        this.username = username;
+        this.password = (password);
+        this.role = role;
+        this.id = UUID.randomUUID().toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,13 +62,13 @@ public class User implements BaseEntity<String> {
         return id != null && Objects.equals(id, user.id);
     }
 
-    public String getPassword() {
-        return String.valueOf(hashCode());
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return String.valueOf(hashCode());
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     @Override
     public int hashCode() {

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @NotNull
-public enum AccessType {
+public enum AccessTypes {
 
     PRIVATE("PRIVATE"),
     PUBLIC("PUBLIC");
@@ -13,16 +13,16 @@ public enum AccessType {
     @NotNull
     private final String accessType;
 
-    AccessType(String accessType) {
+    AccessTypes(String accessType) {
         this.accessType = accessType;
     }
-    @NotNull
+
     public String getAccessType() {
         return accessType;
     }
 
-    public Optional<AccessType> getAccessType(String accessType) {
-        return Arrays.stream(AccessType.values())
+    public Optional<AccessTypes> getAccessType(String accessType) {
+        return Arrays.stream(AccessTypes.values())
                 .filter(enumValue -> enumValue.getAccessType().equals(accessType))
                 .findAny();
     }
