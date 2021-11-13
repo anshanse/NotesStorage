@@ -50,11 +50,12 @@ public class Note implements BaseEntity<String> {
         return id;
     }
 
-    public Note(String name, String message, AccessTypes accessType) {
+    public Note(String name, String message, AccessTypes accessType, User user) {
         this.name = name;
         this.message = message;
         this.accessType = accessType;
         this.id = UUID.randomUUID().toString();
+        this.user = user;
     }
 
     @Override
