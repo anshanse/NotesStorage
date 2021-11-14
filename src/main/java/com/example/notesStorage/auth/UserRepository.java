@@ -10,6 +10,6 @@ import java.util.List;
 public interface UserRepository extends EntityRepository<User, String> {
 
     @Query("SELECT u FROM #{#entityName} u WHERE u.username=?1")
-    List<User> findByUserName(String username);
+    User findByUserName(String username);
 
 }
