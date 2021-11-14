@@ -5,5 +5,5 @@
 <div class="mb-1">
 <u>Add new user</u>
 </div>
-<@l.login "/registration" true/>
+<@l.login "/register" true/>
 </@p.page>

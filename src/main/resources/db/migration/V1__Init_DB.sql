@@ -1,6 +1,7 @@
+
 create table notes (
 	id varchar(36) not null,
-	access_type varchar(255),
+	access_type varchar(7),
 	message varchar(10000),
 	name varchar(255),
 	user_id varchar(36),
