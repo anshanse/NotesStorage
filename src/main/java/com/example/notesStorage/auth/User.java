@@ -6,6 +6,8 @@ import com.example.notesStorage.enums.Role;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -20,11 +23,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements BaseEntity<String> {
+public class User implements BaseEntity<String>, UserDetails {
 
     private static final long serialVersionUID = 6445768438123274615L;
 
@@ -32,30 +35,43 @@ public class User implements BaseEntity<String> {
     @UniqueElements
     @NotNull
     //@GeneratedValue(strategy = GenerationType.AUTO)
-    @Size(min = 8, max = 100, message = "shout be more then 8 and not more that 100")
+    //@Size(min = 8, max = 100, message = "should be more than 8 and not more than 100") //Why???
     private String id;
 
     @NotNull
-    @Size(min = 5, max = 50, message = "shout be more then 5 and not more that 50")
+    @UniqueElements
+    @Size(min = 5, max = 50, message = "should be more than 5 and not more than 50")
     private String username;
 
     @Valid
     @NotNull
-    @Size(min = 8, max = 100, message = "shout be more then 8 and not more that 100")
+    @Size(min = 8, max = 100, message = "should be more than 8 and not more than 100")
     private String password;
 
-    @NotNull
+    private boolean active;
+
+    /*@NotNull
     @Enumerated(EnumType.STRING)
     @NotEmpty
-    private Role role;
+    private Role role;*/
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Note> notes;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
-    public User(String username, String password, Role role) {
+    public boolean isAdmin(){
+        return roles.contains(Role.ADMIN);
+    }
+
+    /*public User(String username, String password, Role role) {
         this.username = username;
         this.password = (password);
         this.role = role;
+        this.id = UUID.randomUUID().toString();
+    }*/
+
+    public User(){
         this.id = UUID.randomUUID().toString();
     }
 
@@ -66,6 +82,9 @@ public class User implements BaseEntity<String> {
         User user = (User) o;
         return id != null && Objects.equals(id, user.id);
     }
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Note> notes;
 
 //    public String getPassword() {
 //        return String.valueOf(hashCode());
@@ -78,5 +97,30 @@ public class User implements BaseEntity<String> {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
     }
 }

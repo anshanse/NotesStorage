@@ -55,13 +55,13 @@ public abstract class UserServiceImpl implements UserService, UserDetailsService
         userRepository.deleteById(id);
     }
 
-    @Override
+    /*@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return (UserDetails) findByUserName(username).get(0);
-    }
+    }*/
 
-    public List<User> findByUserName(String username) {
+    /*public List<User> findByUserName(String username) {
         List<User> userList = userRepository.findByUserName(username);
         return !userList.isEmpty() ? userList : null;
-    }
+    }*/
 }

@@ -1,7 +1,6 @@
 package com.example.notesStorage;
 
-import com.example.notesStorage.addingNote.Note;
-import com.example.notesStorage.auth.*;
+import com.example.notesStorage.auth.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
