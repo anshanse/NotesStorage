@@ -9,7 +9,7 @@
         <input type="password" class="form-control" id="inputPassword" placeholder="Enter password" name="password"/>
     </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
-    <div class="mt-2"><#if !isRegisterForm><a href="/registration">Add new user</a></#if></div>
+    <div class="mt-2"><#if !isRegisterForm><a href="/register">Add new user</a></#if></div>
 <div><input type="submit" class="btn btn-primary mt-3" value="<#if isRegisterForm>Create<#else>Sign In</#if>"/></div>
 </form>
 </#macro>

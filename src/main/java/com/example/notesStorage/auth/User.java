@@ -32,13 +32,13 @@ public class User implements BaseEntity<String>, UserDetails {
     private static final long serialVersionUID = 6445768438123274615L;
 
     @Id
-    @UniqueElements
     @NotNull
     //@GeneratedValue(strategy = GenerationType.AUTO)
     //@Size(min = 8, max = 100, message = "should be more than 8 and not more than 100") //Why???
     private String id;
 
     @NotNull
+    @Column()
     @UniqueElements
     @Size(min = 5, max = 50, message = "should be more than 5 and not more than 50")
     private String username;
@@ -49,6 +49,9 @@ public class User implements BaseEntity<String>, UserDetails {
     private String password;
 
     private boolean active;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Note> notes;
 
     /*@NotNull
     @Enumerated(EnumType.STRING)
@@ -83,8 +86,7 @@ public class User implements BaseEntity<String>, UserDetails {
         return id != null && Objects.equals(id, user.id);
     }
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Set<Note> notes;
+
 
 //    public String getPassword() {
 //        return String.valueOf(hashCode());

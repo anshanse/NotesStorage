@@ -17,17 +17,17 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/registration")
+    @GetMapping("/register")
     public String registration(){
-        return "registration";
+        return "register";
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/register")
     public String addUser(User user, Map<String, Object> model){
         User userFromDB = userService.findByUserName(user.getUsername());
         if (userFromDB !=null){
             model.put("message", "User exists!");
-            return "registration";
+            return "register";
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
