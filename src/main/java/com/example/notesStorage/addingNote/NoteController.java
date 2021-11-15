@@ -54,7 +54,7 @@ public class NoteController {
     }
 
     @GetMapping("name")
-    public List<Note> findByName(String name) {
+    public Iterable<Note> findByName(String name) {
         return noteService.findByName(name);
     }
 

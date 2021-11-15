@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,9 +52,8 @@ public abstract class NoteServiceImpl implements NoteService, UserDetailsService
     }
 
     @Override
-    public List<Note> findByName(String name) {
-        List<Note> noteList = noteRepository.findByName(name);
-        return !noteList.isEmpty() ? noteList : null;
+    public Iterable<Note> findByName(String name) {
+        return noteRepository.findByName(name);
     }
 
 }
