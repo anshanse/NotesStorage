@@ -5,6 +5,7 @@ import com.example.notesStorage.addingNote.Note;
 import com.example.notesStorage.enums.Role;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,19 +24,22 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-//@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements BaseEntity<String>, UserDetails {
+public class User implements BaseEntity<UUID>, UserDetails {
 
     private static final long serialVersionUID = 6445768438123274615L;
 
     @Id
-    @NotNull
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    //@Size(min = 8, max = 100, message = "should be more than 8 and not more than 100") //Why???
-    private String id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @NotNull
     @Column()
@@ -53,11 +57,6 @@ public class User implements BaseEntity<String>, UserDetails {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Note> notes;
 
-    /*@NotNull
-    @Enumerated(EnumType.STRING)
-    @NotEmpty
-    private Role role;*/
-
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
@@ -67,17 +66,6 @@ public class User implements BaseEntity<String>, UserDetails {
         return roles.contains(Role.ADMIN);
     }
 
-    /*public User(String username, String password, Role role) {
-        this.username = username;
-        this.password = (password);
-        this.role = role;
-        this.id = UUID.randomUUID().toString();
-    }*/
-
-    public User(){
-        this.id = UUID.randomUUID().toString();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,16 +73,6 @@ public class User implements BaseEntity<String>, UserDetails {
         User user = (User) o;
         return id != null && Objects.equals(id, user.id);
     }
-
-
-
-//    public String getPassword() {
-//        return String.valueOf(hashCode());
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
     @Override
     public int hashCode() {

@@ -1,53 +1,48 @@
 package com.example.notesStorage.auth;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public abstract class UserServiceImpl implements UserService {
+public abstract class UserServiceImpl implements UserService, UserDetailsService {
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
     private final UserRepository userRepository;
 
-    protected UserServiceImpl(UserRepository userRepository) {
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    protected UserServiceImpl(EntityManager em, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.em = em;
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
     public List<User> findAll() {
-        List<User> allUsers = userRepository.findAll();
-        if (allUsers.isEmpty()) {
-            return null;
-        }
         return userRepository.findAll();
     }
 
     @Override
     public <S extends User> S save(S user) {
-        return user.getId() != null ? userRepository.findById(user.getId()).isEmpty() ? userRepository.save(user) : null : null;
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return userRepository.save(user);
     }
 
-    public Optional<User> findById(UUID id) {
-        return id != null ? userRepository.findById(String.valueOf(id)) : Optional.empty();
-    }
-
-    public void deleteById(UUID id) {
-        if (id!=null) {
-            userRepository.deleteById(String.valueOf(id));
-        }
-    }
-
-    /*@Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return (UserDetails) findByUserName(username).get(0);
-    }*/
-
-    /*public List<User> findByUserName(String username) {
-        List<User> userList = userRepository.findByUserName(username);
-        return !userList.isEmpty() ? userList : null;
-    }*/
 }
