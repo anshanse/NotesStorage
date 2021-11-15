@@ -6,9 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+import java.util.UUID;
+
 @SpringBootApplication
 public class NotesStorageApplication extends SpringBootServletInitializer {
-public static EntityRepository<User,String> userRepository;
+public static EntityRepository<User, UUID> userRepository;
     public static void main(String[] args) {
         SpringApplication.run(NotesStorageApplication.class, args);
 //        System.out.println( userRepository.findAll());

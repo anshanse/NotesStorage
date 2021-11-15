@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RestController
@@ -25,7 +26,7 @@ public class NoteController {
 
     @DeleteMapping("delete")
     public void deleteById(String id) {
-        noteService.deleteById(id);
+        noteService.deleteById(UUID.fromString(id));
     }
 
     @Operation(
@@ -50,7 +51,7 @@ public class NoteController {
 
     @GetMapping("id")
     public Optional<Note> findById(String id) {
-        return noteService.findById(id);
+        return noteService.findById(UUID.fromString(id));
     }
 
     @GetMapping("name")
@@ -72,7 +73,7 @@ public class NoteController {
     public ResponseEntity<Note> changeMessage(
             @ApiParam(required = true, value = "Id of note") @RequestParam(name = "id") String id,
             @ApiParam(required = true, value = "Message of note") @RequestParam(name = "message") String message) {
-        return noteService.findById(id)
+        return noteService.findById(UUID.fromString(id))
                 .map(note -> {
                     note.setMessage(message);
                     return new ResponseEntity<>(noteService.save(note), HttpStatus.OK);
@@ -84,7 +85,7 @@ public class NoteController {
     public Note changeName(@RequestParam(name = "id", required = false, defaultValue = "1") String id,
                            @ApiParam(required = true, name = "name", defaultValue = "Note My")
                            @RequestParam(name = "name") String name) {
-        return noteService.findById(id)
+        return noteService.findById(UUID.fromString(id))
                 .map(note -> {
                     note.setName(name);
                     return noteService.save(note);
