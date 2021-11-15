@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class RegistrationController {
@@ -18,14 +19,14 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping("/register")
-    public String registration(){
+    public Object registration(){
         return "register";
     }
 
     @PostMapping("/register")
-    public String addUser(User user, Map<String, Object> model){
-        User userFromDB = userService.findByUserName(user.getUsername());
-        if (userFromDB !=null){
+    public Object addUser(User user, Map<String, Object> model){
+        Optional<User> optionalUser = userService.findByUserName(user.getUsername());
+        if (optionalUser.isPresent()){
             model.put("message", "User exists!");
             return "register";
         }

@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -37,7 +36,7 @@ public class NoteController {
     }
 
     @GetMapping("list")
-    public List<Note> findAll() {
+    public Iterable<Note> findAll() {
         return noteService.findAll();
     }
 
@@ -54,7 +53,7 @@ public class NoteController {
     }
 
     @GetMapping("name")
-    public List<Note> findByName(String name) {
+    public Iterable<Note> findByName(String name) {
         return noteService.findByName(name);
     }
 
