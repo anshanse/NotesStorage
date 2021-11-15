@@ -1,6 +1,6 @@
 # NotesStorage
 
-before the start of application you have to add enviroment variables:
+before the start of application you have to add environment variables:
   DB_USERNAME - username of user to connect to the database
   DB_PASSWORD - password of user
   DB_URL - database URL
