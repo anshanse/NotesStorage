@@ -13,6 +13,11 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUserName(username).isPresent() ? userRepository.findByUserName(username).get() : null;
+        if (username.isEmpty()) {
+            return null;
+        } else {
+            return userRepository.findByUserName(username).orElse(null);
+        }
+
     }
 }

@@ -19,12 +19,12 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping("/register")
-    public String registration(){
+    public Object registration(){
         return "register";
     }
 
     @PostMapping("/register")
-    public String addUser(User user, Map<String, Object> model){
+    public Object addUser(User user, Map<String, Object> model){
         Optional<User> optionalUser = userService.findByUserName(user.getUsername());
         if (optionalUser.isPresent()){
             model.put("message", "User exists!");
