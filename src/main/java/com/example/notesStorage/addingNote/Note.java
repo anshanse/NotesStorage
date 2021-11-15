@@ -4,6 +4,7 @@ import com.example.notesStorage.BaseEntity;
 import com.example.notesStorage.auth.User;
 import com.example.notesStorage.enums.AccessTypes;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,15 +19,18 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "notes")
-public class Note implements BaseEntity<String> {
+public class Note implements BaseEntity<UUID> {
 
     private static final long serialVersionUID = 4044714827569083806L;
 
     @Id
-    @NotNull
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    @Size(min = 8, max = 100, message = "shout be more then 8 and not more that 100")
-    private String id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @NotNull
 //    @Pattern(regexp = "regular")
@@ -41,11 +45,6 @@ public class Note implements BaseEntity<String> {
     @Enumerated(EnumType.STRING)
     private AccessTypes accessType;
 
-    public String getId() {
-        //return UUID.randomUUID().toString();
-        return id;
-    }
-
     public String getAuthorName(){
         return author != null ? author.getUsername() : "";
     }
@@ -54,7 +53,6 @@ public class Note implements BaseEntity<String> {
         this.name = name;
         this.message = message;
         this.accessType = accessType;
-        this.id = UUID.randomUUID().toString();
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

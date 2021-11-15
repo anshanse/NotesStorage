@@ -13,9 +13,9 @@ import javax.persistence.PersistenceContext;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public abstract class UserServiceImpl implements UserService, UserDetailsService {
 
     @PersistenceContext
@@ -24,8 +24,8 @@ public abstract class UserServiceImpl implements UserService, UserDetailsService
     @Autowired
     private final UserRepository userRepository;
 
-    //    @Autowired
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     protected UserServiceImpl(EntityManager em, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.em = em;
@@ -45,23 +45,4 @@ public abstract class UserServiceImpl implements UserService, UserDetailsService
         return userRepository.save(user);
     }
 
-    @Override
-    public Optional<User> findById(String id) {
-        return userRepository.findById(id);
-    }
-
-    @Override
-    public void deleteById(String id) {
-        userRepository.deleteById(id);
-    }
-
-    /*@Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return (UserDetails) findByUserName(username).get(0);
-    }*/
-
-    /*public List<User> findByUserName(String username) {
-        List<User> userList = userRepository.findByUserName(username);
-        return !userList.isEmpty() ? userList : null;
-    }*/
 }

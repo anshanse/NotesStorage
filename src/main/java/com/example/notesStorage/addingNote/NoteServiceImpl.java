@@ -43,16 +43,6 @@ public abstract class NoteServiceImpl implements NoteService, UserDetailsService
     }
 
     @Override
-    public Optional<Note> findById(String id) {
-        return noteRepository.findById(id);
-    }
-
-    @Override
-    public void deleteById(String id) {
-        noteRepository.deleteById(id);
-    }
-
-    @Override
     public List<Note> findByName(String name) {
         List<Note> noteList = noteRepository.findByName(name);
         return !noteList.isEmpty() ? noteList : null;
