@@ -30,7 +30,7 @@ public class NoteController {
     public String getNotes(@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
         List<Note> notes; // = noteService.findAll();
         if (filter != null && !filter.isEmpty()) {
-            notes = noteService.findByName(filter);
+            notes = (List<Note>) noteService.findByName(filter);
         } else {
             notes = noteService.findAll();
         }
