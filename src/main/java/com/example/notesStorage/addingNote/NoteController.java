@@ -52,7 +52,7 @@ public class NoteController {
         Note note = Note.builder()
                 .name(noteName)
                 .message(noteText)
-                .accessType(AccessTypes.valueOf(access))
+                .accessType(AccessTypes.valueOf(access.toUpperCase()))
                 .build();
         noteService.save(note);
         return "redirect:/note/list";
