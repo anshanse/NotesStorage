@@ -16,9 +16,9 @@
             <legend class="col-form-label col-sm-2 pt-0">Access Types</legend>
             <div class="col-sm-2 ">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="access" id="Privat" value="privat" checked>
-                    <label class="form-check-label" for="Privat">
-                        Privat
+                    <input class="form-check-input" type="radio" name="access" id="Private" value="private" checked>
+                    <label class="form-check-label" for="Private">
+                        Private
                     </label>
                 </div>
                 <div class="form-check">
@@ -29,8 +29,11 @@
                 </div>
             </div>
         </fieldset>
-        <input type="hidden" name="_csrf" value="{_csrf.token}"/>
-        <button type="submit" class="btn btn-primary mt-3">Add note</button>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-outline-primary m-2">Cancel</button>
+            <button type="submit" class="btn btn-primary m-2">Add note</button>
+        </div>
     </form>
 </div>
 </@p.page>
