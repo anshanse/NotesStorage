@@ -25,19 +25,5 @@
     </form>
     </div>
 </div>
-<div class="card-columns">
-<#list notes as note>
-<div class="card my-3">
-    <div class="m-2">
-        <span>${note.text}</span>
-        <i>${note.name}</i>
-    </div>
-    <div class="card-footer text-muted">
-        ${note.author}
-    </div>
-</div>
-<#else>
-No message
-</#list>
-</div>
+
 </@p.page>

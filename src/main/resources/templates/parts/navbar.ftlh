@@ -12,7 +12,7 @@
                     <a class="nav-link" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/main">Notes</a>
+                    <a class="nav-link" aria-current="page" href="/note/list">Notes</a>
                 </li>
                 <#if isAdmin>
                 <li class="nav-item">
@@ -22,7 +22,6 @@
             </ul>
         </div>
         <div class="navbar-text">${name}</div>
-
     </div>
     <@l.logout />
 </nav>
