@@ -1,6 +1,6 @@
 create sequence hibernate_sequence start 1 increment 1;
 
-create table notes (
+CREATE TABLE notes (
 	id uuid not null, 
 	access_type varchar(255), 
 	message varchar(255), 
@@ -16,9 +16,9 @@ create table users (
 	password varchar(255), 
 	username varchar(255), primary key (id)
 );
-alter table if exists notes 
-	add constraint note_user-fk 
-	foreign key (user_id) references users;
-alter table if exists user_role 
+alter table if exists notes
+	add constraint note_user_fk
+	foreign key (user_id) references users ON DELETE CASCADE;
+alter table if exists user_role
 	add constraint role_user_fk 
-	foreign key (user_id) references users;
+	foreign key (user_id) references users ON DELETE CASCADE;

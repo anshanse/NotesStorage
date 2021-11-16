@@ -1,5 +1,6 @@
 package com.example.notesStorage.addingNote;
 
+import com.example.notesStorage.enums.AccessTypes;
 import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,18 +14,51 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-@RestController
-@RequestMapping(value = "notes")
+//@RestController
+@RequestMapping(value = "/note")
 public class NoteController {
 
     @Autowired
     private NoteService noteService;
 
-    @DeleteMapping("delete")
+    @GetMapping("list")
+    public String getNotes(@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
+        List<Note> notes; // = noteService.findAll();
+        if (filter != null && !filter.isEmpty()) {
+            notes = noteService.findByName(filter);
+        } else {
+            notes = noteService.findAll();
+        }
+        int noteCount= notes.size();
+        model.put("notes", notes);
+        model.put("filter", filter);
+        model.put("noteCount", noteCount);
+        return "noteList";
+    }
+
+    @GetMapping("create")
+    public String noteCreate(Map<String, Object> model){
+
+        return "noteCreate";
+    }
+
+    @PostMapping(value = "create")
+    public String addNote(@RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
+        Note note = Note.builder()
+                .name(noteName)
+                .message(noteText)
+                .accessType(AccessTypes.valueOf(access))
+                .build();
+        noteService.save(note);
+        return "redirect:/note/list";
+    }
+
+    /*@DeleteMapping("delete")
     public void deleteById(String id) {
         noteService.deleteById(UUID.fromString(id));
     }
@@ -91,5 +125,5 @@ public class NoteController {
                     return noteService.save(note);
                 })
                 .orElse(null);
-    }
+    }*/
 }
