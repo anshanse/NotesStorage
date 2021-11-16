@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,8 @@ public abstract class UserServiceImpl implements UserService{
 //    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     protected UserServiceImpl(EntityManager em, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        System.out.println("UserServiceImpl loadUserByUsername");
+
         this.em = em;
         this.userRepository = userRepository;
 //        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -31,24 +34,28 @@ public abstract class UserServiceImpl implements UserService{
 
     @Override
     public List<User> findAll() {
+        System.out.println("UserServiceImpl loadUserByUsername");
+
         return userRepository.findAll();
     }
 
     @Override
     public <S extends User> S save(S user) {
+        System.out.println("UserServiceImpl loadUserByUsername");
+
 //        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return userRepository.save(user);
     }
 
-    @Override
+//    @Override
     public Optional<User> findById(String id) {
-        return userRepository.findById(id);
+        return userRepository.findById(UUID.fromString(id));
     }
 
-    @Override
+//    @Override
     public void deleteById(String id) {
-        userRepository.deleteById(id);
+        userRepository.deleteById(UUID.fromString(id));
     }
 
     /*@Override
