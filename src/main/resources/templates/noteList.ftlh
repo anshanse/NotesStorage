@@ -8,21 +8,21 @@
         </div>
     </div>
 
-    <table class="table table-hover">
+    <table class="table table-striped table-hover table-hover-cursor" style="table-layout: fixed">
         <thead>
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Message</th>
-            <th scope="col">Access type</th>
-            <th scope="col"></th>
+            <th class="col-2" scope="col">Name</th>
+            <th class="col-5" scope="col">Message</th>
+            <th class="col-1" scope="col">Access type</th>
+            <th class="col-1" scope="col"></th>
         </tr>
         </thead>
         <#list notes as note>
         <tbody>
-        <tr>
-            <td>${note.name}</td>
-            <td>${note.message}</td>
-            <td>@${note.accessType}</td>
+        <tr class="">
+            <td class="text-truncate">${note.name}</td>
+            <td class="text-truncate">${note.message}</td>
+            <td class="ml-10">${note.accessType}</td>
             <td></td>
         </tr>
         <#else>
