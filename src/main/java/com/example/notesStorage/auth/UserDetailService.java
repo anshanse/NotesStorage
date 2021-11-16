@@ -12,7 +12,7 @@ public class UserDetailService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
+    /*@Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("UserDetailService loadUserByUsername = " + username);
         if (username.isEmpty()) {
@@ -28,5 +28,11 @@ public class UserDetailService implements UserDetailsService {
 
         System.out.println(user);
         return user;
+    }*/
+
+    @Override
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).get();
     }
+
 }
