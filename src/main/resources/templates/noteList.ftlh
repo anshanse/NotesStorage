@@ -22,7 +22,7 @@
         <tr>
             <td>${note.name}</td>
             <td>${note.message}</td>
-            <td>@${note.accessType}</td>
+            <td>${note.accessType}</td>
             <td></td>
         </tr>
         <#else>
