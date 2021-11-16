@@ -13,8 +13,6 @@ public enum Role implements GrantedAuthority {
 
     USER,ADMIN;
 
-
-
     /*ROLE_ADMIN("ADMIN"),
     ROLE_USER("USER");
 

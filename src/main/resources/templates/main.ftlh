@@ -20,7 +20,7 @@
         <div class="form-group mt-3">
             <input type="text" name="tag" class="form-control" placeholder="Tag"/>
         </div>
-        <input type="hidden" name="_csrf" value="{_csrf.token}"/>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button type="submit" class="btn btn-primary mt-3">Add note</button>
     </form>
     </div>
