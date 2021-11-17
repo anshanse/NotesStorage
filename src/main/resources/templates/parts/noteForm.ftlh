@@ -1,4 +1,4 @@
-<#macro editForm isEdit>
+<#macro editForm>
 <div class="form-group mt-3">
     <form method="post" action="/note/create">
         <div class="mb-3">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </fieldset>
-        <input type="hidden" name="noteID" value="<#if isEdit>${note.name}<#else>""</#if>">
+        <input type="hidden" class="form-control" name="noteID" value="<#if note??>${note.id}<#else>""</#if>">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-outline-primary m-2" onclick="location.href='/note/list'">Cancel</button>

@@ -47,10 +47,12 @@ public class NoteController {
         return "noteEdit";
     }
 
+    //@DeleteMapping
+
     @PostMapping(value = "create")
-    public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String id, @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
+    public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String noteID, @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
         Note note;
-        if (id == null) {
+        if (noteID == null) {
             note = Note.builder()
                     .name(noteName)
                     .message(noteText)
@@ -58,7 +60,7 @@ public class NoteController {
                     .author(user)
                     .build();
         } else {
-            note = noteService.getById(UUID.fromString(id));
+            note = noteService.getById(UUID.fromString(noteID));
             note.setName(noteName);
             note.setMessage(noteText);
             note.setAccessType(AccessTypes.valueOf(access.toUpperCase()));
