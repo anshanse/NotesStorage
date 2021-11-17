@@ -1,22 +1,15 @@
 package com.example.notesStorage.addingNote;
 
 import com.example.notesStorage.enums.AccessTypes;
-import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
 
 @Controller
 //@RestController
@@ -28,7 +21,7 @@ public class NoteController {
 
     @GetMapping("list")
     public String getNotes(@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
-        List<Note> notes; // = noteService.findAll();
+        List<Note> notes;// = noteService.findAll();
         if (filter != null && !filter.isEmpty()) {
             notes = noteService.findByName(filter);
         } else {

@@ -41,7 +41,7 @@ public abstract class NoteServiceImpl implements NoteService, UserDetailsService
     }
 
     @Override
-    public Iterable<Note> findByName(String name) {
+    public List<Note> findByName(String name) {
         return noteRepository.findByName(name);
     }
 
