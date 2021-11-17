@@ -11,7 +11,7 @@ Edit user
             </div>
         </#list>
         <input type="hidden" value="${user.id}" name="userId">
-        <input type="hidden" name="_csrf" value="{_csrf.token}"/>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button type="submit">Save</button>
         </form>
     </div>

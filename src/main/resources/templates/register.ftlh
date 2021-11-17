@@ -9,8 +9,8 @@
     </div>
 </div>
 </#if>
-<div class="mb-1">
-<u>Add new user</u>
+<div class="fs-3 d-grid gap-2 col-2 mx-auto mb-5">
+    <b>REGISTRATION</b>
 </div>
 <@l.login "/register" true/>
 </@p.page>
