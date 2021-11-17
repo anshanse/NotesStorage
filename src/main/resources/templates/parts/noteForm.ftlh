@@ -1,6 +1,6 @@
 <#macro editForm isEdit>
 <div class="form-group mt-3">
-    <form method="post" action="create">
+    <form method="post" action="/note/create">
         <div class="mb-3">
             <label for="noteNameInput" class="form-label">Note name</label>
             <input type="text" class="form-control" name="noteName" id="noteNameInput" placeholder="Enter note's name" value="<#if note??>${note.name}<#else>""</#if>">

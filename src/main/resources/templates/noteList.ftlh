@@ -1,4 +1,6 @@
 <#import "parts/common.ftlh" as p>
+<#import "parts/modal.ftlh" as m>
+
 <@p.page>
 <div class="">
     <div class="row ">
@@ -8,13 +10,13 @@
         </div>
     </div>
 
-    <table class="table table-striped table-hover table-hover-cursor" style="table-layout: fixed">
+    <table class="table table-striped table-hover table-hover-cursor table align-middle" style="table-layout: fixed">
         <thead>
         <tr>
-            <th class="col-2" scope="col">Name</th>
+            <th class="col-2 " scope="col">Name</th>
             <th class="col-5" scope="col">Message</th>
-            <th class="col-1" scope="col">Access type</th>
-            <th class="col-1" scope="col"></th>
+            <th class="col-1 justify-content-center mx-auto" scope="col">Access type</th>
+            <th class="col-1 " scope="col"></th>
         </tr>
         </thead>
         <#list notes as note>
@@ -22,15 +24,18 @@
         <tr class="">
             <td class="text-truncate">${note.name}</td>
             <td class="text-truncate">${note.message}</td>
-            <td class="ml-10">${note.accessType}</td>
-            <td>
-                <i class="bi-pencil" onclick="location.href='/note/edit/${note.id}'"></i>
+            <td class="">${note.accessType}</td>
+            <td  style="font-size: 1rem; ">
+                <i class="bi-pencil mx-2" style="cursor:pointer" onclick="location.href='/note/edit/${note.id}'"></i>
+                <i class="bi-trash mx-2" style="cursor:pointer" onclick="location.href='/note/delete/${note.id}'"></i>
+                <i class="bi-link-45deg mx-2" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#linkModal"
+                   data-bs-whatever="/note/delete/${note.id}"></i>
             </td>
         </tr>
         <#else>
         </#list>
         </tbody>
     </table>
-
+<@m.modal />
 </div>
 </@p.page>
