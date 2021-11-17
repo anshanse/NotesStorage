@@ -1,25 +1,17 @@
 package com.example.notesStorage.addingNote;
 
+import com.example.notesStorage.auth.User;
 import com.example.notesStorage.enums.AccessTypes;
-import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-//@RestController
 @RequestMapping(value = "/note")
 public class NoteController {
 
@@ -43,87 +35,36 @@ public class NoteController {
 
     @GetMapping("create")
     public String noteCreate(Map<String, Object> model){
-
         return "noteCreate";
     }
 
+    @GetMapping("edit/{id}")
+    public String noteEdit(@PathVariable String id,  Map<String, Object> model){
+        Note note = noteService.getById(UUID.fromString(id));
+        if (note != null){
+            model.put("note", note);
+        }
+        return "noteEdit";
+    }
+
     @PostMapping(value = "create")
-    public String addNote(@RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
-        Note note = Note.builder()
-                .name(noteName)
-                .message(noteText)
-                .accessType(AccessTypes.valueOf(access.toUpperCase()))
-                .build();
+    public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String id, @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
+        Note note;
+        if (!id.isEmpty()) {
+            note = Note.builder()
+                    .name(noteName)
+                    .message(noteText)
+                    .accessType(AccessTypes.valueOf(access.toUpperCase()))
+                    .author(user)
+                    .build();
+        } else {
+            note = noteService.getById(UUID.fromString(id));
+            note.setName(noteName);
+            note.setMessage(noteText);
+            note.setAccessType(AccessTypes.valueOf(access.toUpperCase()));
+        }
         noteService.save(note);
         return "redirect:/note/list";
     }
 
-    /*@DeleteMapping("delete")
-    public void deleteById(String id) {
-        noteService.deleteById(UUID.fromString(id));
-    }
-
-    @Operation(
-            description = "...")
-    @ApiResponses()
-    @PostMapping
-    public Note save(Note note) {
-        return noteService.save(note);
-    }
-
-    @GetMapping("list")
-    public List<Note> findAll() {
-        return noteService.findAll();
-    }
-
-    @GetMapping("update")
-    public Note update(Note note) {
-        if (noteService.findById(note.getId()).isPresent()) {
-            return save(note);
-        } else return null;
-    }
-
-    @GetMapping("id")
-    public Optional<Note> findById(String id) {
-        return noteService.findById(UUID.fromString(id));
-    }
-
-    @GetMapping("name")
-    public List<Note> findByName(String name) {
-        return noteService.findByName(name);
-    }
-
-
-        @Operation(summary = "Note API.", description = "Set message of note by id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Note{description}",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Note.class))}),
-            @ApiResponse(responseCode = "400",
-                    description = "Note not found by id specified in the request",
-                    content = @Content)})
-        @PutMapping("message")
-    public ResponseEntity<Note> changeMessage(
-            @ApiParam(required = true, value = "Id of note") @RequestParam(name = "id") String id,
-            @ApiParam(required = true, value = "Message of note") @RequestParam(name = "message") String message) {
-        return noteService.findById(UUID.fromString(id))
-                .map(note -> {
-                    note.setMessage(message);
-                    return new ResponseEntity<>(noteService.save(note), HttpStatus.OK);
-                })
-                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-    }
-
-        @PutMapping("name")
-    public Note changeName(@RequestParam(name = "id", required = false, defaultValue = "1") String id,
-                           @ApiParam(required = true, name = "name", defaultValue = "Note My")
-                           @RequestParam(name = "name") String name) {
-        return noteService.findById(UUID.fromString(id))
-                .map(note -> {
-                    note.setName(name);
-                    return noteService.save(note);
-                })
-                .orElse(null);
-    }*/
 }

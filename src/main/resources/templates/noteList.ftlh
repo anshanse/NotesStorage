@@ -23,10 +23,11 @@
             <td class="text-truncate">${note.name}</td>
             <td class="text-truncate">${note.message}</td>
             <td class="ml-10">${note.accessType}</td>
-            <td></td>
+            <td>
+                <i class="bi-pencil" onclick="location.href='/note/edit/${note.id}'"></i>
+            </td>
         </tr>
         <#else>
-<!--        No message-->
         </#list>
         </tbody>
     </table>
