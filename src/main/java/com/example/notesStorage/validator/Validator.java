@@ -1,26 +1,21 @@
 package com.example.notesStorage.validator;
 
-import com.example.notesStorage.BaseEntity;
 import com.example.notesStorage.addingNote.Note;
 import com.example.notesStorage.auth.User;
 
-//@Valid
-//@Validated
-//@AllArgsConstructor
-public class ValidatorImpl<T extends BaseEntity<ID>, ID> implements ValidatorI<T, ID> {
-
+public class Validator {
 
     public Object validNote(Note note){
-        if (validUserName(note.getName()).equals("Valid")){
+        if (validNoteName(note.getName()).equals("Valid")){
             return "Valid";
         }
-        if (validUserPassword(note.getMessage()).equals("Valid")){
+        if (validNoteMessage(note.getMessage()).equals("Valid")){
             return "Valid";
         }
         return "User Invalid";
     }
 
-    public Object validNoteName(String noteName){
+    private Object validNoteName(String noteName){
         if (noteName.isEmpty()){
             return "Name is empty";
         }
@@ -33,7 +28,7 @@ public class ValidatorImpl<T extends BaseEntity<ID>, ID> implements ValidatorI<T
         return "Valid";
     }
 
-    public Object validNoteMessage(String noteMessage){
+    private Object validNoteMessage(String noteMessage){
         if (noteMessage.isEmpty()){
             return "Message is empty";
         }
@@ -46,8 +41,6 @@ public class ValidatorImpl<T extends BaseEntity<ID>, ID> implements ValidatorI<T
         return "Valid";
     }
 
-
-
     public Object validUser(User user){
         if (validUserName(user.getUsername()).equals("Valid")){
             return "Valid";
@@ -58,7 +51,7 @@ public class ValidatorImpl<T extends BaseEntity<ID>, ID> implements ValidatorI<T
         return "User Invalid";
     }
 
-    public Object validUserName(String userName){
+    private Object validUserName(String userName){
         if (userName.isEmpty()){
             return "Name is empty";
         }
@@ -71,7 +64,7 @@ public class ValidatorImpl<T extends BaseEntity<ID>, ID> implements ValidatorI<T
         return "Valid";
     }
 
-    public Object validUserPassword(String userPassword){
+    private Object validUserPassword(String userPassword){
         if (userPassword.isEmpty()){
             return "Password is empty";
         }
