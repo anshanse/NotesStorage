@@ -3,11 +3,11 @@
     <form method="post" action="create">
         <div class="mb-3">
             <label for="noteNameInput" class="form-label">Note name</label>
-            <input type="text" class="form-control" name="noteName" id="noteNameInput" placeholder="Enter note's name" value="${note.name?ifExists}">
+            <input type="text" class="form-control" name="noteName" id="noteNameInput" placeholder="Enter note's name" value="<#if note??>${note.name}<#else>""</#if>">
         </div>
         <div class="mb-3">
             <label for="noteTextarea" class="form-label">Note text</label>
-            <textarea class="form-control" name="noteText" id="noteTextArea" style="resize:none" rows="20" placeholder="Enter your note">${note.message?ifExists}</textarea>
+            <textarea class="form-control" name="noteText" id="noteTextArea" style="resize:none" rows="20" placeholder="Enter your note"><#if note??>${note.message}</#if></textarea>
         </div>
         <fieldset class="row mb-3">
             <legend class="col-form-label col-sm-2 pt-0">Access Types</legend>

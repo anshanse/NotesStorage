@@ -28,7 +28,6 @@
             </td>
         </tr>
         <#else>
-<!--        No message-->
         </#list>
         </tbody>
     </table>

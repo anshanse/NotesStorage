@@ -2,26 +2,16 @@ package com.example.notesStorage.addingNote;
 
 import com.example.notesStorage.auth.User;
 import com.example.notesStorage.enums.AccessTypes;
-import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-//@RestController
 @RequestMapping(value = "/note")
 public class NoteController {
 
@@ -32,7 +22,7 @@ public class NoteController {
     public String getNotes(@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
         List<Note> notes; // = noteService.findAll();
         if (filter != null && !filter.isEmpty()) {
-            notes = noteService.findByName(filter);
+            notes = (List<Note>) noteService.findByName(filter);
         } else {
             notes = noteService.findAll();
         }
