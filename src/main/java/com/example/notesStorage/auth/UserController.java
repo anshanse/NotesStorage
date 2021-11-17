@@ -21,13 +21,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public String userList(Model model){
+    public Object userList(Model model){
         model.addAttribute("users", userService.findAll());
         return "UserList";
     }
 
     @PostMapping
-    public String userSave(
+    public Object userSave(
             @RequestParam String userName,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("{user}")
-    public String userEditForm(@PathVariable User user, Model model){
+    public Object userEditForm(@PathVariable User user, Model model){
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
         return "userEdit";

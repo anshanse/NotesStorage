@@ -6,8 +6,9 @@ import com.example.notesStorage.auth.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
@@ -19,13 +20,13 @@ public class MainController {
     private NoteRepository noteRepository;
 
     @GetMapping("/")
-    public String greeting(Map<String, Object> model) {
+    public Object greeting(Map<String, Object> model) {
         return "greeting";
     }
 
     @GetMapping("main")
-    public String main(@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
-        Iterable<Note> notes = noteRepository.findAll();
+    public Object main(@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
+        Iterable<Note> notes;
         if (filter != null && !filter.isEmpty()) {
             notes = noteRepository.findByName(filter);
         } else {
@@ -37,7 +38,7 @@ public class MainController {
     }
 
     @PostMapping("/main")
-    public String add(@AuthenticationPrincipal User user, @RequestParam String text, @RequestParam String tag, Map<String, Object> model){
+    public Object add(@AuthenticationPrincipal User user, @RequestParam String text, @RequestParam String tag, Map<String, Object> model){
         Note note = Note.builder()
                 .name(tag)
                 .message(text)
