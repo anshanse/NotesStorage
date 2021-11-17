@@ -50,7 +50,7 @@ public class NoteController {
     @PostMapping(value = "create")
     public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String id, @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
         Note note;
-        if (!id.isEmpty()) {
+        if (id == null) {
             note = Note.builder()
                     .name(noteName)
                     .message(noteText)
