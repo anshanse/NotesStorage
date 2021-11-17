@@ -15,7 +15,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@ windowModal.addEventListener('show.bs.modal', function (event) {
   var modalBodyInput = windowModal.querySelector('.modal-body input')
 
   modalTitle.textContent = 'Link to note'
-  modalBodyInput.value = recipient
+  modalBodyInput.value = window.location.origin + recipient
 })
 </script>
 </#macro>

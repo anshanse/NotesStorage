@@ -2,5 +2,5 @@
 <#import "parts/noteForm.ftlh" as f>
 <@p.page>
 <h3>Edit note</h3>
-<@f.editForm true/>
+<@f.editForm />
 </@p.page>

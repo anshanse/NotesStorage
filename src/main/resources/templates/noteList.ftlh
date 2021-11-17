@@ -29,7 +29,7 @@
                 <i class="bi-pencil mx-2" style="cursor:pointer" onclick="location.href='/note/edit/${note.id}'"></i>
                 <i class="bi-trash mx-2" style="cursor:pointer" onclick="location.href='/note/delete/${note.id}'"></i>
                 <i class="bi-link-45deg mx-2" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#linkModal"
-                   data-bs-whatever="/note/delete/${note.id}"></i>
+                   data-bs-whatever="/note/${note.id}"></i>
             </td>
         </tr>
         <#else>
