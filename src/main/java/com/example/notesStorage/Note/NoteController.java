@@ -75,7 +75,7 @@ public class NoteController {
     @PostMapping(value = "create")
     public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String noteID, @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
         Note note;
-        if (noteID == null) {
+        if (noteID.isBlank()) {
             note = Note.builder()
                     .id(UUID.randomUUID())
                     .name(noteName)
