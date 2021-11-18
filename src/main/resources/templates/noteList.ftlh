@@ -29,14 +29,15 @@
             <td class="text-truncate">${note.message}</td>
             <td class="">${note.accessType}</td>
             <td  style="font-size: 1rem; ">
-                <i class="bi-card-text mx-1" style="cursor:pointer" onclick="location.href='/note/show/${note.id}'"></i>
+                <i class="bi-card-text mx-1" style="cursor:pointer" onclick="location.href='/note/share/${note.id}'"></i>
                 <i class="bi-pencil mx-1" style="cursor:pointer" onclick="location.href='/note/edit/${note.id}'"></i>
                 <i class="bi-trash mx-1" style="cursor:pointer" onclick="location.href='/note/delete/${note.id}'"></i>
                 <i class="bi-link-45deg mx-1" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#linkModal"
-                   data-bs-whatever="/note/${note.id}"></i>
+                   data-bs-whatever="/note/share/${note.id}"></i>
             </td>
         </tr>
         <#else>
+<!--       list not exist-->
         </#list>
         </tbody>
     </table>
