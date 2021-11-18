@@ -1,7 +1,7 @@
 package com.example.notesStorage.App;
 
-import com.example.notesStorage.addingNote.Note;
-import com.example.notesStorage.addingNote.NoteRepository;
+import com.example.notesStorage.Note.Note;
+import com.example.notesStorage.Note.NoteRepository;
 import com.example.notesStorage.auth.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

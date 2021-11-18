@@ -1,4 +1,4 @@
-package com.example.notesStorage.addingNote;
+package com.example.notesStorage.Note;
 
 import com.example.notesStorage.auth.User;
 import com.example.notesStorage.enums.AccessTypes;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -30,6 +31,7 @@ public class NoteController {
         model.put("notes", notes);
         model.put("filter", filter);
         model.put("noteCount", noteCount);
+        //model.put("message", "TEST MESSAGE!"); //for view testing
         return "noteList";
     }
 
@@ -47,7 +49,28 @@ public class NoteController {
         return "noteEdit";
     }
 
-    //@DeleteMapping
+    @GetMapping("delete/{id}")
+    public String noteDelete(@PathVariable String id, Map<String, Object> model){
+        noteService.deleteById(UUID.fromString(id));
+        return "redirect:/note/list";
+    }
+
+    @GetMapping("error")
+    public String noteError(Map<String, Object> model){
+        model.put("message", "TEST MESSAGE!"); //for view testing
+        return "noteError";
+    }
+
+    @GetMapping("show/{id}")
+    public String noteShow(@PathVariable String id, Map<String,Object> model){
+        Optional<Note> note = noteService.findById(UUID.fromString(id));
+        if (!note.isEmpty()){
+        model.put("note", note.get());
+        } else {
+            model.put("message", "We can't find tis note ");
+        }
+        return "noteShow";
+    }
 
     @PostMapping(value = "create")
     public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String noteID, @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
