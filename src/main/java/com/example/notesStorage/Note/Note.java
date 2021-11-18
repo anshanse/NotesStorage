@@ -1,4 +1,4 @@
-package com.example.notesStorage.addingNote;
+package com.example.notesStorage.Note;
 
 import com.example.notesStorage.BaseEntity;
 import com.example.notesStorage.auth.User;

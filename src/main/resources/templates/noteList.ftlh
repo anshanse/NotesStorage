@@ -1,7 +1,10 @@
 <#import "parts/common.ftlh" as p>
 <#import "parts/modal.ftlh" as m>
-
+<#import "parts/message.ftlh" as a>
 <@p.page>
+<#if message??>
+<@a.error />
+</#if>
 <div class="">
     <div class="row ">
         <p class="fs-3 ">My notes - ${noteCount} pcs.</p>
@@ -26,9 +29,10 @@
             <td class="text-truncate">${note.message}</td>
             <td class="">${note.accessType}</td>
             <td  style="font-size: 1rem; ">
-                <i class="bi-pencil mx-2" style="cursor:pointer" onclick="location.href='/note/edit/${note.id}'"></i>
-                <i class="bi-trash mx-2" style="cursor:pointer" onclick="location.href='/note/delete/${note.id}'"></i>
-                <i class="bi-link-45deg mx-2" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#linkModal"
+                <i class="bi-card-text mx-1" style="cursor:pointer" onclick="location.href='/note/show/${note.id}'"></i>
+                <i class="bi-pencil mx-1" style="cursor:pointer" onclick="location.href='/note/edit/${note.id}'"></i>
+                <i class="bi-trash mx-1" style="cursor:pointer" onclick="location.href='/note/delete/${note.id}'"></i>
+                <i class="bi-link-45deg mx-1" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#linkModal"
                    data-bs-whatever="/note/${note.id}"></i>
             </td>
         </tr>

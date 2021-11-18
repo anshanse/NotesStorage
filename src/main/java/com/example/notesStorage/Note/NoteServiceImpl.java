@@ -1,4 +1,4 @@
-package com.example.notesStorage.addingNote;
+package com.example.notesStorage.Note;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

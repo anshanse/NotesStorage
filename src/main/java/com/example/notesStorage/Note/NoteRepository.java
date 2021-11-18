@@ -1,4 +1,4 @@
-package com.example.notesStorage.addingNote;
+package com.example.notesStorage.Note;
 
 import com.example.notesStorage.EntityRepository;
 import org.springframework.data.jpa.repository.Query;

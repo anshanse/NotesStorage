@@ -1,7 +1,7 @@
 package com.example.notesStorage.auth;
 
 import com.example.notesStorage.BaseEntity;
-import com.example.notesStorage.addingNote.Note;
+import com.example.notesStorage.Note.Note;
 import com.example.notesStorage.enums.Role;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -9,11 +9,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
@@ -23,7 +21,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "notes")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

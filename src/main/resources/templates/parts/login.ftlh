@@ -2,7 +2,10 @@
 <form action="${path}" method="post" xmlns="http://www.w3.org/1999/html">
     <div class="form-group col-sm-4 mx-auto">
         <label for="inputUserName" class="col-sm-3 form-label"> User Name :</label>
-        <input type="text" class="form-control" id="inputUserName" placeholder="Enter login" name="username"/>
+        <input type="text" class="form-control" id="inputUserName" aria-describedby="userNameHelp" placeholder="Enter login" name="username"/>
+        <#if isRegisterForm>
+        <div id="userNameHelp" class="form-text">Use only english letters and numbers</div>
+    </#if>
     </div>
     <div class="form-group col-sm-4 mx-auto mt-2">
         <label for="inputPassword" class="col-sm-2 form-label"> Password:</label>
@@ -14,6 +17,9 @@
         <#if !isRegisterForm>
         <button type="button" class="btn btn-outline-primary" onclick="location.href='/register'">Registration</button>
     </#if>
+    <#if isRegisterForm>
+    <button type="button" class="btn btn-outline-primary" onclick="location.href='/login'">Login</button>
+</#if>
     </div>
 </form>
 </#macro>

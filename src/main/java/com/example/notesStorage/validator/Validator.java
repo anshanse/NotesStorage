@@ -1,6 +1,6 @@
 package com.example.notesStorage.validator;
 
-import com.example.notesStorage.addingNote.Note;
+import com.example.notesStorage.Note.Note;
 import com.example.notesStorage.auth.User;
 
 public class Validator {

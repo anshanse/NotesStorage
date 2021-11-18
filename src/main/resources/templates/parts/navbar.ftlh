@@ -23,5 +23,7 @@
         </div>
         <div class="navbar-text">${name}</div>
     </div>
+    <#if user??>
     <@l.logout />
+    </#if>
 </nav>
