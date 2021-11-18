@@ -73,16 +73,16 @@ public class NoteController {
         return "noteShow";
     }
 
-    @PostMapping("create")
+    /*@PostMapping("create")
     public String addNote(@AuthenticationPrincipal User user, @ModelAttribute Note editNote){
         if ("".equals(editNote.getId())){
             editNote.setAuthor(user);
         }
         noteService.save(editNote);
         return "redirect:/note/list";
-    }
+    }*/
 
-    /*@PostMapping(value = "create")
+    @PostMapping(value = "create")
     public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String noteID, @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
         Note note;
         if (noteID.isBlank()) {
@@ -101,6 +101,6 @@ public class NoteController {
         }
         noteService.save(note);
         return "redirect:/note/list";
-    }*/
+    }
 
 }
