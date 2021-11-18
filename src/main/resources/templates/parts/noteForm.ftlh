@@ -3,11 +3,11 @@
     <form method="post" action="/note/create" modelAttribute="editNote">
         <div class="mb-3">
             <label for="noteNameInput" class="form-label">Note name</label>
-            <input type="text" class="form-control" name="name" id="noteNameInput" placeholder="Enter note's name" value="<#if note??>${note.name}<#else>""</#if>">
+            <input type="text" class="form-control" name="noteName" id="noteNameInput" placeholder="Enter note's name" value="<#if note??>${note.name}<#else>""</#if>">
         </div>
         <div class="mb-3">
             <label for="noteTextarea" class="form-label">Note text</label>
-            <textarea class="form-control" name="message" id="noteTextArea" style="resize:none" rows="20" placeholder="Enter your note"><#if note??>${note.message}</#if></textarea>
+            <textarea class="form-control" name="noteText" id="noteTextArea" style="resize:none" rows="20" placeholder="Enter your note"><#if note??>${note.message}</#if></textarea>
         </div>
         <fieldset class="row mb-3">
             <legend class="col-form-label col-sm-2 pt-0">Access Types</legend>
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </fieldset>
-        <input type="hidden" class="form-control" name="id" value="<#if note??>${note.id}<#else>""</#if>">
+        <input type="hidden" class="form-control" name="noteID" value="<#if note??>${note.id}<#else>""</#if>">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-outline-primary m-2" onclick="location.href='/note/list'">Cancel</button>

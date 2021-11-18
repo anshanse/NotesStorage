@@ -1,6 +1,7 @@
 package com.example.notesStorage.Note;
 
 import com.example.notesStorage.auth.User;
+import com.example.notesStorage.auth.UserService;
 import com.example.notesStorage.enums.AccessTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,10 +20,14 @@ public class NoteController {
     @Autowired
     private NoteService noteService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("list")
     public String getNotes(@AuthenticationPrincipal User user,@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
         List<Note> notes; // = noteService.findAll();
-        if (filter != null && !filter.isEmpty()) {
+        if (filter != null || !filter.isEmpty()) {
+            user = userService.getById(user.getId());
             notes = List.copyOf(user.getNotes());
                     //(List<Note>) noteService.findByName(filter);
         } else {
@@ -83,7 +88,8 @@ public class NoteController {
     }*/
 
     @PostMapping(value = "create")
-    public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String noteID, @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
+    public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String noteID,
+                          @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
         Note note;
         if (noteID.isBlank()) {
             note = Note.builder()
