@@ -21,7 +21,7 @@ public class MainController {
 
     @GetMapping("/")
     public Object greeting(Map<String, Object> model) {
-        return "greeting";
+        return "redirect:/note/list";
     }
 
     @GetMapping("main")

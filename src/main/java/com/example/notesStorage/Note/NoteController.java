@@ -20,10 +20,11 @@ public class NoteController {
     private NoteService noteService;
 
     @GetMapping("list")
-    public String getNotes(@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
+    public String getNotes(@AuthenticationPrincipal User user,@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
         List<Note> notes; // = noteService.findAll();
         if (filter != null && !filter.isEmpty()) {
-            notes = (List<Note>) noteService.findByName(filter);
+            notes = List.copyOf(user.getNotes());
+                    //(List<Note>) noteService.findByName(filter);
         } else {
             notes = noteService.findAll();
         }
@@ -61,10 +62,10 @@ public class NoteController {
         return "noteError";
     }
 
-    @GetMapping("show/{id}")
-    public String noteShow(@PathVariable String id, Map<String,Object> model){
+    @GetMapping("share/{id}")
+    public String noteShow(@AuthenticationPrincipal User user,@PathVariable String id, Map<String,Object> model){
         Optional<Note> note = noteService.findById(UUID.fromString(id));
-        if (!note.isEmpty()){
+        if (!note.isEmpty() && user!=null && note.get().getAccessType().equals(AccessTypes.PUBLIC)){
         model.put("note", note.get());
         } else {
             model.put("message", "We can't find tis note ");
@@ -72,7 +73,16 @@ public class NoteController {
         return "noteShow";
     }
 
-    @PostMapping(value = "create")
+    @PostMapping("create")
+    public String addNote(@AuthenticationPrincipal User user, @ModelAttribute Note editNote){
+        if ("".equals(editNote.getId())){
+            editNote.setAuthor(user);
+        }
+        noteService.save(editNote);
+        return "redirect:/note/list";
+    }
+
+    /*@PostMapping(value = "create")
     public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String noteID, @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
         Note note;
         if (noteID.isBlank()) {
@@ -91,6 +101,6 @@ public class NoteController {
         }
         noteService.save(note);
         return "redirect:/note/list";
-    }
+    }*/
 
 }
