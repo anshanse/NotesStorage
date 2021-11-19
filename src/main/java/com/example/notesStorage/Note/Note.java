@@ -11,9 +11,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
+@Data
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "author")
+@EqualsAndHashCode(exclude = "author")
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
