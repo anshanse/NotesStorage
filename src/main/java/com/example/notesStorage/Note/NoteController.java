@@ -25,11 +25,10 @@ public class NoteController {
 
     @GetMapping("list")
     public String getNotes(@AuthenticationPrincipal User user,@RequestParam(required = false,defaultValue = "") String filter, Map<String, Object> model){
-        List<Note> notes; // = noteService.findAll();
+        List<Note> notes;
         if (filter != null || !filter.isEmpty()) {
             user = userService.getById(user.getId());
-            notes = List.copyOf(user.getNotes());
-                    //(List<Note>) noteService.findByName(filter);
+            notes = noteService.getListNotes(user.getId());
         } else {
             notes = noteService.findAll();
         }
