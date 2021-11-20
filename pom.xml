@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>notesStorage</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>notesStorage</name>
 	<description>Text Notes Storage</description>
 	<properties>
@@ -104,7 +104,7 @@
 			<artifactId>validation-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.2.0.Final</version>
 		</dependency>
