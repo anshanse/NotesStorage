@@ -30,6 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired PasswordEncoder passwordEncoder;
 
+	@Bean
+	public PasswordEncoder getPasswordEncoder(){
+		return new BCryptPasswordEncoder(8);
+	}
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http

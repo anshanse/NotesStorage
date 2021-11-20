@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class ValidateUtils {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    //@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public static Map<String,String> getErrors(BindingResult bindingResult){
         Collector<FieldError, ?, Map<String, String>> collector = Collectors.toMap(
