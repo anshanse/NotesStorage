@@ -49,10 +49,11 @@ public class Note implements BaseEntity<UUID> {
         return author != null ? author.getUsername() : "";
     }
 
-    public Note(String name, String message, AccessTypes accessType) {
+    public Note(String id,String name, String message, AccessTypes accessType) {
         this.name = name;
         this.message = message;
         this.accessType = accessType;
+        this.id = UUID.fromString(id);
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

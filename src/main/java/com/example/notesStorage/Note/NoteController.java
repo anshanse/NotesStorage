@@ -49,7 +49,7 @@ public class NoteController {
     public String noteEdit(@PathVariable String id,  Map<String, Object> model){
         Note note = noteService.getById(UUID.fromString(id));
         if (note != null){
-            model.put("note", note);
+            model.put("editNote", note);
         }
         return "noteEdit";
     }
@@ -77,16 +77,26 @@ public class NoteController {
         return "noteShow";
     }
 
-    /*@PostMapping("create")
-    public String addNote(@AuthenticationPrincipal User user, @ModelAttribute Note editNote){
-        if ("".equals(editNote.getId())){
+    @PostMapping("create")
+    public String addNote(@AuthenticationPrincipal User user,
+                          @ModelAttribute("editNote") Note editNote,
+                          @RequestParam(required = false) String noteId,
+                          //@RequestParam(required = false) String name,
+                          //@RequestParam(required = false) String message,
+                          //@RequestParam(required = false) String accessType,
+                          Map<String, Object> model){
+        if (noteId.isBlank() /*&& !name.isBlank() && !message.isBlank()*/){
+            editNote.setAuthor(user);
+        } else {
+            editNote = noteService.getById(UUID.fromString(noteId));;
+            //editNote.setAccessType(AccessTypes.valueOf(access.toUpperCase()));
             editNote.setAuthor(user);
         }
         noteService.save(editNote);
         return "redirect:/note/list";
-    }*/
+    }
 
-    @PostMapping(value = "create")
+    /*@PostMapping(value = "create")
     public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String noteID,
                           @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
         Note note;
@@ -106,6 +116,6 @@ public class NoteController {
         }
         noteService.save(note);
         return "redirect:/note/list";
-    }
+    }*/
 
 }
