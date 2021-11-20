@@ -11,6 +11,6 @@ import java.util.UUID;
 public interface UserRepository extends EntityRepository<User, UUID> {
 
     @Query("SELECT u FROM #{#entityName} u WHERE u.username=?1")
-    Optional<User> findByUsername(String username);
+    User findByUsername(String username);
 
 }
