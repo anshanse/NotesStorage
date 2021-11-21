@@ -1,5 +1,9 @@
 <#import "parts/common.ftlh" as p>
+<#import "parts/message.ftlh" as m>
 <@p.page>
+<#if message??>
+<@m.error />
+</#if>
 <div class="col-sm-7 mx-auto">
 <table class="table table-striped">
     <thead class="table-primary">

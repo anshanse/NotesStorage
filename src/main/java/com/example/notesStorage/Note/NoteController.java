@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -80,7 +81,7 @@ public class NoteController {
 
     @PostMapping("create")
     public String addNote(@AuthenticationPrincipal User user,
-                          @ModelAttribute("editNote") Note editNote,
+                          @Valid @ModelAttribute("editNote") Note editNote,
                           @RequestParam(required = false) String noteId,
                           //@RequestParam(required = false) String name,
                           //@RequestParam(required = false) String message,
