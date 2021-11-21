@@ -20,8 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 @Validated
 @Controller
@@ -59,10 +58,17 @@ public class RegistrationController {
 
     @ExceptionHandler(ConstraintViolationException.class)
     ModelAndView onConstraintValidationException(ConstraintViolationException e, Model model) {
-        ValidationErrorResponse error = new ValidationErrorResponse();
+        /*ValidationErrorResponse error = new ValidationErrorResponse();
         for (ConstraintViolation violation : e.getConstraintViolations()) {
             error.getViolations().add(
                     new Violation(violation.getPropertyPath().toString(), violation.getMessage()));
+        }*/
+        //StringBuilder error = new StringBuilder();
+        List<String> error = new ArrayList<>();
+        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+        for (ConstraintViolation<?> violation : violations){
+            //error.append(violation.getMessage().concat("\\n"));
+            error.add(violation.getMessage());
         }
         model.addAttribute("message",error);
         return new ModelAndView("/register");
