@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.http.HttpRequest;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -26,12 +29,25 @@ public class UserController {
         return "userList";
     }
 
-    @PostMapping
+    @GetMapping("error")
+    public String userError(@RequestParam User user, Model model){
+        /*UUID id = user.getId();
+        model.addAttribute("userId",user.getId());*/
+        return "errorUser";
+    }
+
+    @PostMapping("")
     public Object userSave(
             @RequestParam String userName,
             @RequestParam Map<String, String> form,
-            @RequestParam("userId") User user
+            @RequestParam("userId") User user,
+            Model model
     ){
+        if (!userName.isBlank() && (userName.length()<6 || userName.length()>51)){
+            model.addAttribute("message", "The login must be between 5 and 50 characters long");
+            model.addAttribute("userId", user.getId());
+            return "errorUser";
+        }
         user.setUsername(userName);
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
         user.getRoles().clear();
