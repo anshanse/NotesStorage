@@ -6,14 +6,17 @@ import com.example.notesStorage.enums.AccessTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.*;
 
+@Validated
 @Controller
 @RequestMapping(value = "/note")
 public class NoteController {
@@ -81,7 +84,7 @@ public class NoteController {
 
     @PostMapping("create")
     public String addNote(@AuthenticationPrincipal User user,
-                          @Valid @ModelAttribute("editNote") Note editNote,
+                          @ModelAttribute("editNote") Note editNote,
                           @RequestParam(required = false) String noteId,
                           //@RequestParam(required = false) String name,
                           //@RequestParam(required = false) String message,
@@ -96,4 +99,20 @@ public class NoteController {
         return "redirect:/note/list";
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    ModelAndView onConstraintValidationException(ConstraintViolationException e, Model model) {
+        /*ValidationErrorResponse error = new ValidationErrorResponse();
+        for (ConstraintViolation violation : e.getConstraintViolations()) {
+            error.getViolations().add(
+                    new Violation(violation.getPropertyPath().toString(), violation.getMessage()));
+        }*/
+        List<String> error = new ArrayList<>();
+        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+        for (ConstraintViolation<?> violation : violations){
+            //error.append(violation.getMessage().concat("\\n"));
+            error.add(violation.getMessage());
+        }
+        model.addAttribute("message",error);
+        return new ModelAndView("noteError");
+    }
 }
