@@ -21,9 +21,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Getter
 @Setter
-@ToString(exclude = "notes")
+@EqualsAndHashCode(exclude = "notes")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

@@ -11,9 +11,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
+@Data
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "author")
+@EqualsAndHashCode(exclude = "author")
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -34,7 +36,7 @@ public class Note implements BaseEntity<UUID> {
 
     @NotNull
     //@Pattern(regexp = "regular")
-    @Size(min = 5, max = 100, message = "should be more than 5 and not more than 100")
+    @Size(min = 5, max = 100, message = "Note name should be more than 5 and not more than 100")
     private String name;
 
     @NotNull
