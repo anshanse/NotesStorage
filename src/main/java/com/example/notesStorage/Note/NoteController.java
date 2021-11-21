@@ -101,15 +101,9 @@ public class NoteController {
 
     @ExceptionHandler(ConstraintViolationException.class)
     ModelAndView onConstraintValidationException(ConstraintViolationException e, Model model) {
-        /*ValidationErrorResponse error = new ValidationErrorResponse();
-        for (ConstraintViolation violation : e.getConstraintViolations()) {
-            error.getViolations().add(
-                    new Violation(violation.getPropertyPath().toString(), violation.getMessage()));
-        }*/
         List<String> error = new ArrayList<>();
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         for (ConstraintViolation<?> violation : violations){
-            //error.append(violation.getMessage().concat("\\n"));
             error.add(violation.getMessage());
         }
         model.addAttribute("message",error);
