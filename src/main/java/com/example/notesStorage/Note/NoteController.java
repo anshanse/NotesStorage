@@ -30,7 +30,7 @@ public class NoteController {
             user = userService.getById(user.getId());
             notes = noteService.getListNotes(user.getId());
         } else {
-            notes = noteService.findAll();
+            notes = noteService.getListNotes(user.getId());
         }
         int noteCount= notes.size();
         model.put("notes", notes);
@@ -69,7 +69,8 @@ public class NoteController {
     @GetMapping("share/{id}")
     public String noteShow(@AuthenticationPrincipal User user,@PathVariable String id, Map<String,Object> model){
         Optional<Note> note = noteService.findById(UUID.fromString(id));
-        if (!note.isEmpty() && user!=null && note.get().getAccessType().equals(AccessTypes.PUBLIC)){
+        if ((!note.isEmpty() && ((user!=null && note.get().getAuthor().getId().equals(user.getId())) ||
+                (user == null && note.get().getAccessType().equals(AccessTypes.PUBLIC))))){
         model.put("note", note.get());
         } else {
             model.put("message", "We can't find tis note ");
@@ -83,39 +84,15 @@ public class NoteController {
                           @RequestParam(required = false) String noteId,
                           //@RequestParam(required = false) String name,
                           //@RequestParam(required = false) String message,
-                          //@RequestParam(required = false) String accessType,
+                          @RequestParam(required = false) String accessType,
                           Map<String, Object> model){
-        if (noteId.isBlank() /*&& !name.isBlank() && !message.isBlank()*/){
-            editNote.setAuthor(user);
-        } else {
-            editNote = noteService.getById(UUID.fromString(noteId));;
-            //editNote.setAccessType(AccessTypes.valueOf(access.toUpperCase()));
-            editNote.setAuthor(user);
+        if (!noteId.isBlank()) {
+            editNote.setId(UUID.fromString(noteId));
+            editNote.setAccessType(AccessTypes.valueOf(accessType.toUpperCase()));
         }
+        editNote.setAuthor(user);
         noteService.save(editNote);
         return "redirect:/note/list";
     }
-
-    /*@PostMapping(value = "create")
-    public String addNote(@AuthenticationPrincipal User user, @RequestParam(required = false) String noteID,
-                          @RequestParam String noteName, @RequestParam String noteText, @RequestParam String access){
-        Note note;
-        if (noteID.isBlank()) {
-            note = Note.builder()
-                    .id(UUID.randomUUID())
-                    .name(noteName)
-                    .message(noteText)
-                    .accessType(AccessTypes.valueOf(access.toUpperCase()))
-                    .author(user)
-                    .build();
-        } else {
-            note = noteService.getById(UUID.fromString(noteID));
-            note.setName(noteName);
-            note.setMessage(noteText);
-            note.setAccessType(AccessTypes.valueOf(access.toUpperCase()));
-        }
-        noteService.save(note);
-        return "redirect:/note/list";
-    }*/
 
 }
