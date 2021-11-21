@@ -5,11 +5,14 @@
         <input type="text" class="form-control" id="inputUserName" aria-describedby="userNameHelp" placeholder="Enter login" name="username"/>
         <#if isRegisterForm>
         <div id="userNameHelp" class="form-text">Use only english letters and numbers</div>
-    </#if>
+        </#if>
     </div>
     <div class="form-group col-sm-4 mx-auto mt-2">
         <label for="inputPassword" class="col-sm-2 form-label"> Password:</label>
-        <input type="password" class="form-control" id="inputPassword" placeholder="Enter password" name="password"/>
+        <input type="password" class="form-control" id="inputPassword" aria-describedby="passHelp" placeholder="Enter password" name="password"/>
+        <#if isRegisterForm>
+        <div id="passHelp" class="form-text">Length from 8 to 100 characters</div>
+    </#if>
     </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
     <div class="d-grid gap-2 col-2 mx-auto"><input type="submit" class="btn btn-primary mt-3" value="<#if isRegisterForm>Create<#else>Sign In</#if>"/></div>

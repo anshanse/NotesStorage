@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping
     public Object userList(Model model){
         model.addAttribute("users", userService.findAll());
-        return "UserList";
+        return "userList";
     }
 
     @PostMapping

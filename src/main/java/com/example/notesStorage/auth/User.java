@@ -48,11 +48,11 @@ public class User implements BaseEntity<UUID>, UserDetails {
     @Size(
             min = 5,
             max = 50,
-            message = "The author email '${validatedValue}' must be between {min} and {max} characters long")
+            message = "The '${validatedValue}' must be between {min} and {max} characters long")
     private String username;
 
     @NotBlank(message = "Password cannot be empty")
-    @Size(min = 8, max = 100, message = "Password should have length from 8 to 100 characters")
+    @Size(min = 8, max = 100, message = "The '${validatedValue}' must be between {min} and {max} characters long")
     private String password;
 
     private boolean active;
