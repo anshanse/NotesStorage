@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -37,8 +38,6 @@ public class RegistrationController {
         return "register";
     }
 
-    //@GetMapping("register/errors")
-
     @PostMapping("/register")
     public String addUser(@Valid User user, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
@@ -58,30 +57,15 @@ public class RegistrationController {
         return "redirect:/login";
     }
 
-    /*@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
-        Collector<FieldError, ?, Map<String, String>> collector = Collectors.toMap(
-                fieldError -> fieldError.getField(),
-                FieldError::getDefaultMessage
-        );
-        new BindingResult.getFieldErrors().stream().collect(collector);
-        *//*String mapAsString = collector. keySet().stream()
-                .map(key -> key + "=" + collector.get(key))
-                .collect(Collectors.joining(", ", "{", "}"));*//*
-        return new ResponseEntity<>(collector.toString(), HttpStatus.BAD_REQUEST);
-    }*/
-
-    /*@ExceptionHandler(ConstraintViolationException.class)
-        //@ResponseStatus(HttpStatus.BAD_REQUEST)
-    String onConstraintValidationException(ConstraintViolationException e, Model model) {
+    ModelAndView onConstraintValidationException(ConstraintViolationException e, Model model) {
         ValidationErrorResponse error = new ValidationErrorResponse();
         for (ConstraintViolation violation : e.getConstraintViolations()) {
             error.getViolations().add(
                     new Violation(violation.getPropertyPath().toString(), violation.getMessage()));
         }
         model.addAttribute("message",error);
-        return "redirect:/register";
-    }*/
+        return new ModelAndView("/register");
+    }
 
 }
