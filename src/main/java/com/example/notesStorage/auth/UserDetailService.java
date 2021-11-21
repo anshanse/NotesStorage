@@ -1,6 +1,7 @@
 package com.example.notesStorage.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,9 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).get();
+        if(userRepository.findByUsername(username).isPresent()) {
+            return userRepository.findByUsername(username).get();
+        }
+        return Optional.of(userRepository.findByUsername(username).get()).get();
     }
-
 }
