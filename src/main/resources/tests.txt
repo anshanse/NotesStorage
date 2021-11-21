@@ -1,0 +1,1 @@
+jdbc:postgres://llammncidrurke:c2-52-208-229-228.eu-west-1.compute.amazonaws.com:5432/d48e944195b5c4
